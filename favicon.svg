@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title>Resonant Web Design</title>
+  <desc>Monogram icon for Resonant Web Design.</desc>
+  <rect width="512" height="512" rx="120" fill="#0C0F14"/>
+  <path d="M136 374V138h118c67 0 102 30 102 86 0 37-18 64-52 77l62 73h-83l-52-62h-31v62h-64zm64-115h44c29 0 44-13 44-35 0-23-15-34-44-34h-44v69z" fill="#F5F1E8"/>
+  <circle cx="376" cy="166" r="18" fill="#7AE7D7"/>
+</svg>

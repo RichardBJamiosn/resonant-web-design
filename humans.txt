@@ -1,0 +1,13 @@
+/* TEAM */
+Founder: Richard B. Jamison
+Site: Resonant Web Design
+Location: Ohio, United States
+
+/* STACK */
+Front end: HTML, CSS, JavaScript
+Hosting: GitHub Pages / custom domain
+SEO: Technical foundations, structured data, service pages, industry pages, content architecture
+
+/* CONTACT */
+Email: hello@resonantwebdesign.com
+Web: https://resonantwebdesign.com/

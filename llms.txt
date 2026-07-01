@@ -1,0 +1,37 @@
+# Resonant Web Design
+
+Resonant Web Design is a selective web design and development studio led by Richard B. Jamison.
+
+## What We Do
+
+- Custom website design and development
+- SEO foundations and content strategy
+- Hosting, maintenance, and launch systems
+- Support for service businesses, SaaS, and portfolio sites
+- Landscaping website design and local SEO page architecture
+
+## Positioning
+
+- Fewer clients at a time
+- Deeply custom work
+- SEO handled in-house
+- No template assembly line
+- Operator-led strategy for real service businesses
+
+## Important Pages
+
+- Home: https://resonantwebdesign.com/
+- Custom Web Design: https://resonantwebdesign.com/services/custom-web-design/
+- SEO Foundations: https://resonantwebdesign.com/services/seo-foundations/
+- Landscaping Website Design: https://resonantwebdesign.com/industries/landscaping-web-design/
+
+## Contact
+
+- Website: https://resonantwebdesign.com/
+- Email: hello@resonantwebdesign.com
+- Founder: https://richardbjamison.com/rbj-portfolio.html
+
+## Discovery
+
+- Sitemap: https://resonantwebdesign.com/sitemap.xml
+- Robots: https://resonantwebdesign.com/robots.txt

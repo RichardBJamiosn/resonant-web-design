@@ -3,7 +3,8 @@
        ======================================== */
     window.addEventListener('load', () => {
       setTimeout(() => {
-        document.getElementById('loader').classList.add('done');
+        const loader = document.getElementById('loader');
+        if (loader) loader.classList.add('done');
         animateHero();
       }, 1600);
     });
@@ -103,66 +104,71 @@
        WAVEFORM CANVAS
        ======================================== */
     const canvas = document.getElementById('waveform');
-    const ctx = canvas.getContext('2d');
-    let animationId;
 
-    function resizeCanvas() {
-      const container = canvas.parentElement;
-      canvas.width = container.offsetWidth * window.devicePixelRatio;
-      canvas.height = container.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let animationId;
+
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.offsetWidth * window.devicePixelRatio;
+        canvas.height = container.offsetHeight * window.devicePixelRatio;
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function drawWave(time) {
+        const w = canvas.width / window.devicePixelRatio;
+        const h = canvas.height / window.devicePixelRatio;
+
+        ctx.clearRect(0, 0, w, h);
+
+        const waves = [
+          { amplitude: 25, frequency: 0.008, speed: 0.0008, color: 'rgba(232, 93, 48, 0.15)', offset: 0 },
+          { amplitude: 18, frequency: 0.012, speed: 0.0012, color: 'rgba(232, 93, 48, 0.10)', offset: 2 },
+          { amplitude: 12, frequency: 0.006, speed: 0.001, color: 'rgba(45, 155, 131, 0.08)', offset: 4 },
+        ];
+
+        waves.forEach(wave => {
+          ctx.beginPath();
+          ctx.moveTo(0, h);
+
+          for (let x = 0; x <= w; x += 2) {
+            const y = h / 2
+              + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude
+              + Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 1.3) * wave.amplitude * 0.4;
+            ctx.lineTo(x, y);
+          }
+
+          ctx.lineTo(w, h);
+          ctx.closePath();
+          ctx.fillStyle = wave.color;
+          ctx.fill();
+        });
+
+        animationId = requestAnimationFrame(() => drawWave(time + 16));
+      }
+
+      drawWave(0);
+
+      const hero = document.querySelector('.hero');
+      if (hero) {
+        const heroObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!animationId) drawWave(performance.now());
+            } else {
+              cancelAnimationFrame(animationId);
+              animationId = null;
+            }
+          });
+        }, { threshold: 0 });
+
+        heroObserver.observe(hero);
+      }
     }
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    function drawWave(time) {
-      const w = canvas.width / window.devicePixelRatio;
-      const h = canvas.height / window.devicePixelRatio;
-
-      ctx.clearRect(0, 0, w, h);
-
-      const waves = [
-        { amplitude: 25, frequency: 0.008, speed: 0.0008, color: 'rgba(232, 93, 48, 0.15)', offset: 0 },
-        { amplitude: 18, frequency: 0.012, speed: 0.0012, color: 'rgba(232, 93, 48, 0.10)', offset: 2 },
-        { amplitude: 12, frequency: 0.006, speed: 0.001, color: 'rgba(45, 155, 131, 0.08)', offset: 4 },
-      ];
-
-      waves.forEach(wave => {
-        ctx.beginPath();
-        ctx.moveTo(0, h);
-
-        for (let x = 0; x <= w; x += 2) {
-          const y = h / 2
-            + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude
-            + Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 1.3) * wave.amplitude * 0.4;
-          ctx.lineTo(x, y);
-        }
-
-        ctx.lineTo(w, h);
-        ctx.closePath();
-        ctx.fillStyle = wave.color;
-        ctx.fill();
-      });
-
-      animationId = requestAnimationFrame(() => drawWave(time + 16));
-    }
-
-    drawWave(0);
-
-    /* Pause waveform when not visible */
-    const heroObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!animationId) drawWave(performance.now());
-        } else {
-          cancelAnimationFrame(animationId);
-          animationId = null;
-        }
-      });
-    }, { threshold: 0 });
-
-    heroObserver.observe(document.querySelector('.hero'));
 
     /* ========================================
        SMOOTH SCROLL FOR NAV LINKS
